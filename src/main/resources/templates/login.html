@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,15 +11,18 @@
 <div class="max-w-4xl mx-auto">
     <h1 class="text-2xl font-bold mb-4">Login Page</h1>
 
-    <form class="bg-white p-6 shadow-sm border border-gray-200">
+    <form action="/login" method="post" class="bg-white p-6 shadow-sm border border-gray-200">
+
+        <p style="color:red;" th:if="${error}" th:text="${error}"></p>
+
         <div class="mb-4">
             <label class="block text-sm font-medium text-gray-700 mb-1">Username:</label>
-            <input type="text" class="w-full border border-gray-300 p-2 focus:outline-none focus:ring-1 focus:ring-blue-500">
+            <input type="text" name="username" class="w-full border border-gray-300 p-2 focus:outline-none focus:ring-1 focus:ring-blue-500">
         </div>
 
         <div class="mb-4">
             <label class="block text-sm font-medium text-gray-700 mb-1">Password:</label>
-            <input type="password" class="w-full border border-gray-300 p-2 focus:outline-none focus:ring-1 focus:ring-blue-500">
+            <input type="password" name="password" class="w-full border border-gray-300 p-2 focus:outline-none focus:ring-1 focus:ring-blue-500">
         </div>
 
         <button type="submit" class="bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors">
