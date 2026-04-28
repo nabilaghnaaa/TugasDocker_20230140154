@@ -11,6 +11,12 @@
 <div class="max-w-4xl mx-auto">
     <h1 class="text-2xl font-bold mb-4">Login Page</h1>
 
+    <!-- FOTO + QUOTE -->
+    <div class="bg-white p-6 shadow-sm border border-gray-200 mb-6 text-center">
+        <img th:src="@{/images/fotoku.jpeg}" alt="Foto Saya" class="w-32 h-32 mx-auto rounded-full object-cover mb-4">
+        <p class="text-gray-600 italic">"jadi 1% lebih baik dari kemarin -RRN."</p>
+    </div>
+
     <form action="/login" method="post" class="bg-white p-6 shadow-sm border border-gray-200">
 
         <p style="color:red;" th:if="${error}" th:text="${error}"></p>
