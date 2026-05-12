@@ -1,6 +1,7 @@
 package com.tugas.deploy.controller;
 
-import com.tugas.deploy.model.User;
+import com.tugas.deploy.service.UserService;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +12,18 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private User dummyUser = new User("admin", "20230140154");
+    private final UserService userService;
 
-    // TAMBAHAN (buat nampung data)
     private List<String[]> dataMahasiswa = new ArrayList<>();
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostConstruct
+    public void init() {
+        userService.saveDefaultUser();
+    }
 
     @GetMapping("/")
     public String loginPage() {
@@ -26,10 +35,8 @@ public class UserController {
                         @RequestParam String password,
                         Model model) {
 
-        if (username.equals(dummyUser.getUsername()) &&
-                password.equals(dummyUser.getPassword())) {
-
-            model.addAttribute("data", dataMahasiswa); // TAMBAH
+        if (userService.login(username, password)) {
+            model.addAttribute("data", dataMahasiswa);
             return "home";
         } else {
             model.addAttribute("error", "Username atau password salah");
@@ -39,11 +46,10 @@ public class UserController {
 
     @GetMapping("/home")
     public String home(Model model) {
-        model.addAttribute("data", dataMahasiswa); // TAMBAH
+        model.addAttribute("data", dataMahasiswa);
         return "home";
     }
 
-    // TAMBAHAN ROUTE
     @GetMapping("/form")
     public String formPage() {
         return "form";
